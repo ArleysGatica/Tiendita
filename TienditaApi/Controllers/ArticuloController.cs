@@ -6,79 +6,80 @@ using System.Threading.Tasks;
 using TienditaApi.Context;
 using TienditaApi.Modelo;
 
+
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace TienditaApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GestorController : ControllerBase 
-        {
-
+    public class ArtiuloController : ControllerBase
+    {
         private readonly AppDbContext context;
-        
-        public GestorController (AppDbContext context)
+        public ArtiuloController(AppDbContext context)
         {
             this.context = context;
         }
 
-        // GET: api/<GestorController>
+        // GET: api/<ValuesController>
         [HttpGet]
         public ActionResult Get()
         {
             try
             {
-                var clientes = context.cliente.ToList();
-                return Ok(clientes);
-                
-            } catch(Exception Ex)
-            {
+                var articulos = context.articulo.ToList();
+                return Ok(articulos);
+
+            }catch(Exception Ex)
+                {
                 return BadRequest(Ex.Message);
             }
+
         }
 
-        // GET api/<GestorController>/5
-        [HttpGet("{id}", Name = "GetGestor" )]
-        public ActionResult Get(Guid id)
+        // GET api/<ValuesController>/5
+        [HttpGet("{id}", Name = "GetArticulo")]
+        public ActionResult Get(int id)
         {
             try
             {
-                var gestor = context.cliente.FirstOrDefault(g => g.Id_Cliente == id);
-                return Ok(gestor);
+                var articulo = context.articulo.FirstOrDefault(g => g.Id_Articulo == id);
+                return Ok(articulo);
             }
-            catch (Exception Ex)
+            catch(Exception Ex)
             {
                 return BadRequest(Ex.Message);
             }
         }
 
-        // POST api/<GestorController>
+        // POST api/<ValuesController>
         [HttpPost]
-        public ActionResult Post([FromBody] Cliente gestor)
+        public ActionResult Post([FromBody] Articulo articulo)
         {
             try
             {
-                context.cliente.Add(gestor);
+                context.articulo.Add(articulo);
                 context.SaveChanges();
-                return CreatedAtRoute("GetGestor", new { id = gestor.Id_Cliente}, gestor);
+                return CreatedAtRoute("GetArituclo", new { id = articulo.Id_Articulo }, articulo);
 
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
         }
 
-        // PUT api/<GestorController>/5
+        // PUT api/<ValuesController>/5
         [HttpPut("{id}")]
-        public ActionResult Put(Guid id, [FromBody] Cliente gestor)
+        public ActionResult Put(int id, [FromBody] Articulo articulo)
         {
             try
             {
-                if(gestor.Id_Cliente == id)
+                if (articulo.Id_Articulo == id)
                 {
-                    context.cliente.Add(gestor);
+                    context.articulo.Add(articulo);
                     context.SaveChanges();
-                    return CreatedAtRoute("GetGestor", new { id = gestor.Id_Cliente }, gestor);
+                    return CreatedAtRoute("GetArticulo", new { id = articulo.Id_Articulo }, articulo);
                 }
                 else
                 {
@@ -90,19 +91,18 @@ namespace TienditaApi.Controllers
             {
                 return BadRequest(ex.Message);
             }
-
         }
 
-        // DELETE api/<GestorController>/5
+        // DELETE api/<ValuesController>/5
         [HttpDelete("{id}")]
-        public ActionResult Delete(Guid id)
+        public ActionResult Delete(int id)
         {
             try
             {
-                var gestor = context.cliente.FirstOrDefault(g => g.Id_Cliente == id);
-                if (gestor != null)
-                {              
-                    context.cliente.Remove(gestor);
+                var articulo = context.articulo.FirstOrDefault(g => g.Id_Articulo == id);
+                if (articulo != null)
+                {
+                    context.articulo.Remove(articulo);
                     context.SaveChanges();
                     return Ok(id);
                 }
@@ -111,7 +111,7 @@ namespace TienditaApi.Controllers
                     return BadRequest();
                 }
             }
-                        
+
             catch (Exception Ex)
             {
                 return BadRequest(Ex.Message);
