@@ -45,13 +45,15 @@ namespace TienditaApi.Controllers
         {
             try
             {
-                var pedido = context.pedido.FirstOrDefault(g => g.Id_Pedido == id);
+                var pedido = context.pedido.FirstOrDefault(g => g.PedidoID == id);
                 return Ok(pedido);
             }
+
             catch (Exception Ex)
             {
                 return BadRequest(Ex.Message);
             }
+
         }
 
         // POST api/<ValuesController>
@@ -60,9 +62,11 @@ namespace TienditaApi.Controllers
         {
             try
             {
-                context.pedido .Add(pedido);
+
+                pedido.PedidoID = new Guid();
+                context.Add(pedido);
                 context.SaveChanges();
-                return CreatedAtRoute("GetPeido", new { id = pedido.Id_Pedido }, pedido);
+                return CreatedAtRoute("GetPedido", new { id = pedido.PedidoID }, pedido);
 
             }
             catch (Exception ex)
@@ -77,11 +81,11 @@ namespace TienditaApi.Controllers
         {
             try
             {
-                if (pedido.Id_Pedido == id)
+                if (pedido.PedidoID == id)
                 {
                     context.pedido.Add(pedido);
                     context.SaveChanges();
-                    return CreatedAtRoute("GetPedido", new { id = pedido.Id_Pedido }, pedido);
+                    return CreatedAtRoute("GetPedido", new { id = pedido.PedidoID }, pedido);
                 }
                 else
                 {
@@ -101,7 +105,7 @@ namespace TienditaApi.Controllers
         {
             try
             {
-                var pedido = context.pedido.FirstOrDefault(g => g.Id_Pedido == id);
+                var pedido = context.pedido.FirstOrDefault(g => g.PedidoID == id);
                 if (pedido != null)
                 {
                     context.pedido.Remove(pedido);

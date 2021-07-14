@@ -26,7 +26,7 @@ namespace TienditaApi.Controllers
         {
             try
             {
-                var proveedor = context.proveedor .ToList();
+                var proveedor = context.Proveedores .ToList();
                 return Ok(proveedor);
 
             }
@@ -37,12 +37,12 @@ namespace TienditaApi.Controllers
         }
 
         // GET api/<ValuesController>/5
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "GetProveedor")]
         public ActionResult Get(Guid id)
         {
             try
             {
-                var proveedor = context.proveedor .FirstOrDefault(g => g.Id_proveedor == id);
+                var proveedor = context.Proveedores.FirstOrDefault(g => g.ProveedorID == id);
                 return Ok(proveedor);
             }
             catch (Exception Ex)
@@ -57,9 +57,10 @@ namespace TienditaApi.Controllers
         {
             try
             {
-                context.proveedor.Add(proveedor);
+                proveedor.ProveedorID = new Guid();
+                context.Proveedores.Add(proveedor);
                 context.SaveChanges();
-                return CreatedAtRoute("GetProveedor", new { id = proveedor.Id_proveedor }, proveedor);
+                return CreatedAtRoute("GetProveedor", new { id = proveedor.ProveedorID }, proveedor);
 
             }
             catch (Exception ex)
@@ -69,16 +70,16 @@ namespace TienditaApi.Controllers
         }
 
         // PUT api/<ValuesController>/5
-        [HttpPut("{id}")]
+        [HttpPut("{id}", Name ="GetProveedor")]
         public ActionResult Put(Guid id, [FromBody] Proveedor proveedor)
         {
             try
             {
-                if (proveedor.Id_proveedor == id)
+                if (proveedor.ProveedorID == id)
                 {
-                    context.proveedor.Add(proveedor);
+                    context.Proveedores.Add(proveedor);
                     context.SaveChanges();
-                    return CreatedAtRoute("GetArticulo", new { id = proveedor.Id_proveedor }, proveedor);
+                    return CreatedAtRoute("GetArticulo", new { id = proveedor.ProveedorID }, proveedor);
                 }
                 else
                 {
@@ -93,15 +94,15 @@ namespace TienditaApi.Controllers
         }
 
         // DELETE api/<ValuesController>/5
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}", Name = "GetProveedor")]
         public ActionResult Delete(Guid id)
         {
             try
             {
-                var Proveedor = context.proveedor.FirstOrDefault(g => g.Id_proveedor == id);
+                var Proveedor = context.Proveedores.FirstOrDefault(g => g.ProveedorID == id);
                 if (Proveedor != null)
                 {
-                    context.proveedor.Remove(Proveedor);
+                    context.Proveedores.Remove(Proveedor);
                     context.SaveChanges();
                     return Ok(id);
                 }

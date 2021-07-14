@@ -9,10 +9,18 @@ namespace TienditaApi.Modelo
     public class Articulo
     {
         [Key]
-        public int Id_Articulo { get; set; }
-        public int NombreArt { get; set; }
-        public int Precio { get; set; }
-        public decimal Stock { get; set; }
-        public int Id_Proveedor { get; set; }
+        public Guid ArticuloID { get; set; }
+        public int CategoriaID { get; set; }
+        public Guid ProveedorID { get; set; }
+        public string NombreArt { get; set; }
+        public decimal Precio { get; set; }
+        public int Stock { get; set; }
+        public string Imagen { get; set; }
+        public Proveedor Proveedor { get; set; }
+       public Categoria Categoria { get; set; }
+        
+
+        public List<DetallePedidos> DetallePedidoss { get; set; }
+
     }
 }
