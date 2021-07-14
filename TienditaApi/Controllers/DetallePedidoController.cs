@@ -26,7 +26,7 @@ namespace TienditaApi.Controllers
         {
             try
             {
-                return Ok(context.detallePedido.ToList());
+                return Ok(context.DetallePedido.ToList());
             }
             catch (Exception e)
             {
@@ -41,7 +41,7 @@ namespace TienditaApi.Controllers
         {
             try
             {
-                return Ok(context.detallePedido.Where(g => id == g.Id_Pedido).ToList());
+                return Ok(context.DetallePedido.Where(g => id == g.ArticuloID).ToList());
             }
             catch (Exception e)
             {
@@ -56,16 +56,17 @@ namespace TienditaApi.Controllers
         {
             try
             {
-                context.detallePedido .Add(detallePedido);
+                context.DetallePedido.Add(detallePedido);
                 context.SaveChanges();
-                return CreatedAtRoute("GetDetallePedido", detallePedido);
+                return CreatedAtRoute("GetDetallePedido", new { id = detallePedido.ArticuloID }, detallePedido);
+                Ok(detallePedido);
+
             }
             catch (Exception e)
             {
 
                 return BadRequest(e.Message);
             }
-
         }
 
     }

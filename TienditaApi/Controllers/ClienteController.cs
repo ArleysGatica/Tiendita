@@ -28,8 +28,8 @@ namespace TienditaApi.Controllers
         {
             try
             {
-                var clientes = context.cliente.ToList();
-                return Ok(clientes);
+                //var clientes = context.Cliente.ToList();
+                return Ok(context.Cliente.ToList());
                 
             } catch(Exception Ex)
             {
@@ -43,7 +43,7 @@ namespace TienditaApi.Controllers
         {
             try
             {
-                var gestor = context.cliente.FirstOrDefault(g => g.Id_Cliente == id);
+                var gestor = context.Cliente.FirstOrDefault(g => g.ClienteID == id);
                 return Ok(gestor);
             }
             catch (Exception Ex)
@@ -58,9 +58,10 @@ namespace TienditaApi.Controllers
         {
             try
             {
-                context.cliente.Add(gestor);
+                gestor.ClienteID = new Guid();
+                context.Cliente.Add(gestor);
                 context.SaveChanges();
-                return CreatedAtRoute("GetGestor", new { id = gestor.Id_Cliente}, gestor);
+                return CreatedAtRoute("GetGestor", new { id = gestor.ClienteID}, gestor);
 
             }catch(Exception ex)
             {
@@ -74,11 +75,11 @@ namespace TienditaApi.Controllers
         {
             try
             {
-                if(gestor.Id_Cliente == id)
+                if(gestor.ClienteID == id)
                 {
-                    context.cliente.Add(gestor);
+                    context.Cliente.Add(gestor);
                     context.SaveChanges();
-                    return CreatedAtRoute("GetGestor", new { id = gestor.Id_Cliente }, gestor);
+                    return CreatedAtRoute("GetGestor", new { id = gestor.ClienteID }, gestor);
                 }
                 else
                 {
@@ -99,10 +100,10 @@ namespace TienditaApi.Controllers
         {
             try
             {
-                var gestor = context.cliente.FirstOrDefault(g => g.Id_Cliente == id);
+                var gestor = context.Cliente.FirstOrDefault(g => g.ClienteID == id);
                 if (gestor != null)
                 {              
-                    context.cliente.Remove(gestor);
+                    context.Cliente.Remove(gestor);
                     context.SaveChanges();
                     return Ok(id);
                 }

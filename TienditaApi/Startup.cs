@@ -41,7 +41,9 @@ namespace TienditaApi
                                   builder =>
                                   {
                                       builder.WithOrigins("http://localhost:3000",
-                                                          "http://www.contoso.com");
+                                                          "http://www.contoso.com")
+                                                               .AllowAnyHeader()
+                                                               .AllowAnyMethod();
                                   });
             });
             services.AddControllers();
@@ -63,8 +65,8 @@ namespace TienditaApi
             app.UseStaticFiles(new StaticFileOptions()
             {
                 FileProvider = new PhysicalFileProvider(
-                            Path.Combine(Directory.GetCurrentDirectory(), @"Content")),
-                RequestPath = new PathString("/Content")
+                            Path.Combine(Directory.GetCurrentDirectory(), @"image")),
+                RequestPath = new PathString("/image")
             });
 
             app.UseRouting();

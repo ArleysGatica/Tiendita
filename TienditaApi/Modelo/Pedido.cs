@@ -9,11 +9,11 @@ namespace TienditaApi.Modelo
     public class Pedido
     {
         [Key]
-
-        public Guid Id_Pedido { get; set; }
+        public Guid PedidoID { get; set; }
         public DateTime Fecha { get; set; }
-        public Guid Id_Cliente { get; set; }
+        public Guid ClienteID { get; set; }
+        public Cliente cliente { get; set; }
 
-        public List<DetallePedidos> DetallePedidoss { get; set; }
+    public List<DetallePedidos> DetallePedidoss { get; set; }
     }
 }

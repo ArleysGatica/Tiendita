@@ -9,13 +9,15 @@ namespace TienditaApi.Modelo
     public class Cliente {
          [Key]
 
-        public Guid Id_Cliente { get; set; }
+        public Guid ClienteID { get; set; }
         public string Cedula { get; set; }
         public string NombresCl { get; set; }
         public string ApellidosCl { get; set; }
-        public string Telefono { get; set; }
+        public int Telefono { get; set; }
         public string Direccion { get; set; }
-        public string Sexo { get; set; }
+        public char Sexo { get; set; }
+
+        public List<Pedido> Pedidos { get; set; }
 
     }
 }
